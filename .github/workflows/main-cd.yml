@@ -1,0 +1,21 @@
+name: Main build check
+
+on:
+  push:
+    branches: [ main ]
+
+job:
+  build:
+    name: Install dependencies and build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v3
+      - name: Use Node
+        uses: action/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
